@@ -12,14 +12,14 @@ $GivName = Read-Host "Please Enter Users First Name (Enter for blank)"
 $SurName = Read-Host "Please Enter Users Last Name (Enter for blank)"
 $sAMName = Read-Host "Please Enter Users Login Name (Can't be blank!)"
 #$Name = "$GName $SName"
-$Login = $sAMName +"@igudhadera.co.il"
-$email = $sAMName +"@sviva-sc.org.il"
+$Login = $sAMName +"@your-org-mail.com"
+$email = $sAMName +"@your-org-mail.com"
 $ProxAdrMain = "SMTP:$sAMName@sviva-sc.org.il"
-$ProxAdr365 = "smtp:$sAMName@igudhadera.mail.onmicrosoft.com"
-$ProxAdrOnPrem = "smtp:$sAMName@igudhadera.co.il" 
-$TargetAdr =  $sAMName +'@igudhadera.mail.onmicrosoft.com'
-$OUp = "CN=Users,DC=igudhadera,DC=co,DC=il"
-$Password = '!gud-N3wp@s5'
+$ProxAdr365 = "smtp:$sAMName@your-org-mail.mail.onmicrosoft.com"
+$ProxAdrOnPrem = "smtp:$sAMName@your-org-mail.com" 
+$TargetAdr =  $sAMName +'@your-org-mail.mail.onmicrosoft.com'
+$OUp = "CN=Users,DC=your-org,DC=domain,DC=com"
+$Password = 'SomePassword' # Better to use key file for that!
 #User to search for
 #$USERNAME = $sAMName
 
@@ -54,28 +54,5 @@ $ObjADUser = $null
         Write-Host "The user account $sAMName is created." -ForegroundColor Cyan
 }
 
-<#
-try {
-    Write-Verbose "Searching for $($sAMName) in Activ Directory DataBase"
-    $ObjADUser = Get-ADUser $sAMName
-    Write-Verbose "User $($sAMName) was found" 
-}
-catch [Microsoft.ActiveDirectory.Management.ADIdentityNotFoundException,Microsoft.ActiveDirectory.Management.Commands.GetADUser] {
-    "User $($sAMName) was not found" | Write-Warning
-}
-catch {
-    "An unspecifed error occured" | Write-Error
-    Exit # Stop Powershell! 
-}
-#>
-#Create the user if it was not found (Example)
-<#if (!$ObjADUser) {
-    Write-Verbose "Creating User $($sAMName)" #(Example)
-	New-ADUser -Name $Name -GivenName $GName -Surname $SName -SamAccountName $sAMName -UserPrincipalName $Login -Path $OUp -AccountPassword(Read-Host -AsSecureString "Input Password") -Enabled $true
-	Set-ADUser $sAMName -add @{ProxyAddresses=$ProxAdrMain,$ProxAdr365,$ProxAdrOnPrem}
-    Set-ADUser $sAMName -add @{TargeAddresse=$TargetAdr}
-    Get-ADUser -Identity $sAMName -Properties proxyaddresses | Select-Object Name, @{L = "ProxyAddresses"; E = { ($_.ProxyAddresses -like 'smtp:*') -join ";"}}
 
-}
-#>
 
